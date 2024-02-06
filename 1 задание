@@ -1,0 +1,70 @@
+PS D:\Програмирование\Обучение в Нетологии\Все проекты\docker установка> docker pull busybox:latest
+latest: Pulling from library/busybox
+9ad63333ebc9: Pull complete
+Digest: sha256:6d9ac9237a84afe1516540f40a0fafdc86859b2141954b4d643af7066d598b74
+docker.io/library/busybox:latest
+
+  View a summary of image vulnerabilities and recommendations → docker scout quickview busybox:latest
+PS D:\Програмирование\Обучение в Нетологии\Все проекты\docker установка> docker run --name pinger busybox ping -c 7 netology.ru
+PING netology.ru (188.114.99.224): 56 data bytes
+64 bytes from 188.114.99.224: seq=0 ttl=63 time=58.943 ms
+64 bytes from 188.114.99.224: seq=1 ttl=63 time=58.380 ms
+64 bytes from 188.114.99.224: seq=2 ttl=63 time=59.742 ms
+64 bytes from 188.114.99.224: seq=3 ttl=63 time=62.376 ms
+64 bytes from 188.114.99.224: seq=4 ttl=63 time=74.841 ms
+64 bytes from 188.114.99.224: seq=5 ttl=63 time=59.547 ms
+64 bytes from 188.114.99.224: seq=6 ttl=63 time=77.024 ms
+
+--- netology.ru ping statistics ---
+round-trip min/avg/max = 58.380/64.407/77.024 ms
+CONTAINER ID   IMAGE     COMMAND                  CREATED          STATUS                      PORTS     NAMES
+8f0de61409c7   busybox   "ping -c 7 netology.…"   34 seconds ago   Exited (0) 27 seconds ago             pinger
+PING netology.ru (188.114.99.224): 56 data bytes
+64 bytes from 188.114.99.224: seq=0 ttl=63 time=58.943 ms
+64 bytes from 188.114.99.224: seq=1 ttl=63 time=58.380 ms
+64 bytes from 188.114.99.224: seq=2 ttl=63 time=59.742 ms
+64 bytes from 188.114.99.224: seq=3 ttl=63 time=62.376 ms
+64 bytes from 188.114.99.224: seq=4 ttl=63 time=74.841 ms
+64 bytes from 188.114.99.224: seq=5 ttl=63 time=59.547 ms
+64 bytes from 188.114.99.224: seq=6 ttl=63 time=77.024 ms
+
+--- netology.ru ping statistics ---
+7 packets transmitted, 7 packets received, 0% packet loss
+round-trip min/avg/max = 58.380/64.407/77.024 ms
+PS D:\Програмирование\Обучение в Нетологии\Все проекты\docker установка> docker start pinger
+pinger
+PS D:\Програмирование\Обучение в Нетологии\Все проекты\docker установка> docker ps -a
+CONTAINER ID   IMAGE     COMMAND                  CREATED         STATUS                      PORTS     NAMES
+8f0de61409c7   busybox   "ping -c 7 netology.…"   2 minutes ago   Exited (0) 36 seconds ago             pinger
+PS D:\Програмирование\Обучение в Нетологии\Все проекты\docker установка> docker logs pinger
+PING netology.ru (188.114.99.224): 56 data bytes
+64 bytes from 188.114.99.224: seq=0 ttl=63 time=58.943 ms
+64 bytes from 188.114.99.224: seq=1 ttl=63 time=58.380 ms
+64 bytes from 188.114.99.224: seq=2 ttl=63 time=59.742 ms
+64 bytes from 188.114.99.224: seq=3 ttl=63 time=62.376 ms
+64 bytes from 188.114.99.224: seq=4 ttl=63 time=74.841 ms
+64 bytes from 188.114.99.224: seq=6 ttl=63 time=77.024 ms
+--- netology.ru ping statistics ---
+round-trip min/avg/max = 58.380/64.407/77.024 ms
+64 bytes from 188.114.99.224: seq=0 ttl=63 time=58.409 ms
+64 bytes from 188.114.99.224: seq=1 ttl=63 time=61.900 ms
+64 bytes from 188.114.99.224: seq=2 ttl=63 time=62.187 ms
+64 bytes from 188.114.99.224: seq=3 ttl=63 time=65.022 ms
+64 bytes from 188.114.99.224: seq=4 ttl=63 time=65.158 ms
+64 bytes from 188.114.99.224: seq=5 ttl=63 time=58.798 ms
+64 bytes from 188.114.99.224: seq=6 ttl=63 time=67.389 ms
+
+--- netology.ru ping statistics ---
+7 packets transmitted, 7 packets received, 0% packet loss
+round-trip min/avg/max = 58.409/62.694/67.389 ms
+PS D:\Програмирование\Обучение в Нетологии\Все проекты\docker установка> docker logs pinger | Select-String "PING" | Measure-Object -Line | Select-Object -ExpandProperty Lines
+4
+PS D:\Програмирование\Обучение в Нетологии\Все проекты\docker установка> docker logs pinger | Select-String "bytes from" | Measure-Object -Line | Select-Object -ExpandProperty Lines
+14
+PS D:\Програмирование\Обучение в Нетологии\Все проекты\docker установка> docker rm pinger
+pinger
+PS D:\Програмирование\Обучение в Нетологии\Все проекты\docker установка> docker rmi busybox:latest
+Untagged: busybox:latest
+Untagged: busybox@sha256:6d9ac9237a84afe1516540f40a0fafdc86859b2141954b4d643af7066d598b74
+Deleted: sha256:3f57d9401f8d42f986df300f0c69192fc41da28ccc8d797829467780db3dd741
+Deleted: sha256:2e112031b4b923a873c8b3d685d48037e4d5ccd967b658743d93a6e56c3064b9
